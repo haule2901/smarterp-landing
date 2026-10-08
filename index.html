@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="vi" data-l="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SmartERP — AI-native ERP</title>
+<meta name="description" content="SmartERP: ERP gắn AI vào mọi bộ phận — marketing, nội dung, sale, CRM, chăm sóc sau bán. Dùng được cho nhiều ngành hàng. Mọi trải nghiệm khách hàng đều được ghi lại.">
+<meta property="og:title" content="SmartERP — AI vô hình ở mọi điểm chạm">
+<meta property="og:description" content="ERP thế hệ mới cho mọi ngành hàng: AI ở mọi bộ phận, mọi trải nghiệm thành dữ liệu.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%238b5cf6'/><stop offset='1' stop-color='%2306b6d4'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='url(%23g)'/><path d='M9 20l5-8 4 5 5-7' stroke='white' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06060b; --bg2:#0c0c16; --card:rgba(255,255,255,.04); --line:rgba(255,255,255,.09);
+  --text:#ecebf5; --muted:#9a98b3; --dim:#6b6985;
+  --v:#8b5cf6; --p:#ec4899; --c:#06b6d4; --a:#f59e0b; --g:#10b981;
+  --grad:linear-gradient(110deg,#a78bfa 0%,#f472b6 35%,#22d3ee 70%,#a78bfa 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Be Vietnam Pro',system-ui,sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html[data-l=vi] .en, html[data-l=en] .vi{display:none!important}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.grad{background:var(--grad);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.mono{font-family:'JetBrains Mono',monospace}
+
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.45;animation:float 18s ease-in-out infinite}
+.b1{width:560px;height:560px;background:var(--v);top:-180px;left:-120px}
+.b2{width:480px;height:480px;background:var(--p);top:10%;right:-160px;animation-delay:-6s;opacity:.3}
+.b3{width:520px;height:520px;background:var(--c);top:55%;left:30%;animation-delay:-12s;opacity:.2}
+@keyframes float{50%{transform:translate(60px,40px) scale(1.1)}}
+.gridbg{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 70%);opacity:.5}
+
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(6,6,11,.6);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-.02em}
+.logo i{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--v),var(--p) 50%,var(--c));display:grid;place-items:center;box-shadow:0 0 24px rgba(139,92,246,.6)}
+.links{display:flex;gap:28px;font-size:14px;color:var(--muted)}
+.links a:hover{color:var(--text)}
+.right{display:flex;gap:10px;align-items:center}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--card)}
+.lang button{border:0;background:none;color:var(--muted);font:600 12px 'Be Vietnam Pro';padding:6px 11px;border-radius:999px;cursor:pointer}
+.lang button.on{background:linear-gradient(135deg,var(--v),var(--p));color:#fff}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:13px 22px;border-radius:12px;transition:.2s;cursor:pointer;border:0}
+.btn-p{background:linear-gradient(135deg,var(--v),var(--p));color:#fff;box-shadow:0 8px 30px -8px rgba(236,72,153,.6)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 40px -8px rgba(236,72,153,.8)}
+.btn-g{border:1px solid var(--line);background:var(--card);color:var(--text)}
+.btn-g:hover{border-color:rgba(255,255,255,.25)}
+.btn-sm{padding:8px 14px;font-size:13px;border-radius:10px}
+
+.hero{padding:90px 0 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 6px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:13px;color:var(--muted);margin-bottom:24px}
+.badge b{background:linear-gradient(135deg,var(--v),var(--c));color:#fff;padding:3px 10px;border-radius:999px;font-size:11px;letter-spacing:.04em}
+h1{font-size:clamp(36px,5.4vw,64px);line-height:1.07;letter-spacing:-.035em;font-weight:800}
+.lead{font-size:18px;color:var(--muted);margin:24px 0 34px;max-width:560px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+
+.live{border-radius:22px;padding:1px;background:linear-gradient(140deg,rgba(139,92,246,.7),rgba(236,72,153,.3),rgba(6,182,212,.6))}
+.live-in{border-radius:21px;background:rgba(12,12,22,.92);padding:22px}
+.live-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.who{display:flex;gap:12px;align-items:center}
+.av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--p));display:grid;place-items:center;font-weight:700}
+.who small{display:block;color:var(--dim);font-size:12px}
+.dot{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--g)}
+.dot::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--g);animation:ping 1.6s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(16,185,129,.7)}70%,100%{box-shadow:0 0 0 8px rgba(16,185,129,0)}}
+.feed{display:flex;flex-direction:column;gap:8px;height:280px;overflow:hidden;mask-image:linear-gradient(#000 70%,transparent);-webkit-mask-image:linear-gradient(#000 70%,transparent)}
+.ev{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:13px;animation:in .5s ease both}
+@keyframes in{from{opacity:0;transform:translateY(-12px)}}
+.tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;letter-spacing:.03em}
+.ev span:last-child{color:var(--muted)}
+.ev em{font-style:normal;color:var(--text)}
+
+section{padding:80px 0}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c);margin-bottom:14px}
+h2{font-size:clamp(28px,4vw,46px);line-height:1.12;letter-spacing:-.03em;font-weight:800;max-width:780px}
+.sub{color:var(--muted);font-size:17px;max-width:640px;margin-top:16px}
+.head{margin-bottom:44px}
+
+/* network diagram: 3x3 grid, core in the middle, SVG lines behind */
+.net{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:56px 64px;padding:8px}
+.net svg{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible}
+.net line{stroke:rgba(139,92,246,.35);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.net line.flow{stroke:url(#lg);stroke-width:3;stroke-dasharray:6 94;stroke-linecap:round;animation:flow 2.6s linear infinite}
+@keyframes flow{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+.node{position:relative;z-index:1;border-radius:16px;padding:16px;background:var(--bg2);border:1px solid var(--line);transition:.3s}
+.node:hover{border-color:var(--p);box-shadow:0 0 30px -6px var(--p);transform:translateY(-3px)}
+.node .t{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.node .t i{font-style:normal;width:34px;height:34px;flex-shrink:0;border-radius:10px;display:grid;place-items:center;font-size:17px}
+.node p{font-size:12.5px;color:var(--muted);margin-top:8px}
+.core{position:relative;z-index:1;border-radius:20px;padding:22px 16px;text-align:center;background:linear-gradient(135deg,rgba(139,92,246,.35),rgba(236,72,153,.25),rgba(6,182,212,.3));border:1px solid rgba(255,255,255,.2);box-shadow:0 0 60px -10px rgba(139,92,246,.8);display:flex;flex-direction:column;justify-content:center;align-items:center}
+.core::after{content:"";position:absolute;inset:-6px;border-radius:24px;border:1px solid rgba(139,92,246,.5);animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{to{inset:-22px;opacity:0}}
+.core b{font-size:20px;letter-spacing:-.02em}
+.core small{display:block;color:#ddd8ff;font-size:12.5px;margin-top:4px}
+.core .ai{display:inline-block;margin-bottom:8px;font-size:11px;font-weight:700;letter-spacing:.1em;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.12)}
+
+/* journey */
+.journey{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.step{border-radius:18px;padding:20px;background:var(--card);border:1px solid var(--line)}
+.step .n{font-size:26px;margin-bottom:8px}
+.step h4{font-size:16px;margin-bottom:12px}
+.see,.ai2{font-size:13px;padding:10px 12px;border-radius:10px}
+.see{background:rgba(255,255,255,.035);color:var(--muted);margin-bottom:8px}
+.ai2{background:linear-gradient(135deg,rgba(139,92,246,.16),rgba(6,182,212,.1));border:1px solid rgba(139,92,246,.28);color:#d6d2f5}
+.see b,.ai2 b{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+.see b{color:var(--dim)} .ai2 b{color:#c4b5fd}
+
+/* industries */
+.inds{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.ind{border-radius:18px;padding:22px 18px;background:var(--card);border:1px solid var(--line);transition:.3s}
+.ind:hover{border-color:rgba(6,182,212,.5);transform:translateY(-4px)}
+.ind .e{font-size:30px;margin-bottom:10px}
+.ind h4{font-size:15.5px;margin-bottom:6px}
+.ind p{font-size:13px;color:var(--muted)}
+.ind.you{background:linear-gradient(135deg,rgba(139,92,246,.18),rgba(6,182,212,.12));border-style:dashed;border-color:rgba(139,92,246,.5)}
+
+/* data */
+.data{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.term{border-radius:18px;background:#05050a;border:1px solid var(--line);overflow:hidden;box-shadow:0 30px 80px -20px rgba(139,92,246,.35)}
+.term-h{display:flex;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);align-items:center}
+.term-h i{width:11px;height:11px;border-radius:50%}
+.term-h i:nth-child(1){background:#ff5f57}.term-h i:nth-child(2){background:#febc2e}.term-h i:nth-child(3){background:#28c840}
+.term-h span{margin-left:10px;font-size:12px;color:var(--dim)}
+.log{padding:16px;font-size:12.5px;height:300px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:4px}
+.log div{animation:in .4s both;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.k{color:#c4b5fd}.s{color:#67e8f9}.t{color:var(--dim)}.o{color:#f9a8d4}
+.points{display:grid;gap:12px;margin-top:28px}
+.pt{display:flex;gap:14px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card)}
+.pt>i{font-style:normal;font-size:20px}
+.pt h4{font-size:15px}.pt p{font-size:13.5px;color:var(--muted)}
+
+.final{text-align:center;border-radius:28px;padding:64px 24px;background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(236,72,153,.15) 50%,rgba(6,182,212,.2));border:1px solid rgba(255,255,255,.12)}
+.final h2{margin:0 auto}
+.final .sub{margin:16px auto 30px}
+.final .cta{justify-content:center}
+footer{padding:36px 0;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+.rv.on{opacity:1;transform:none}
+
+@media (max-width:1000px){
+  .hero,.data{grid-template-columns:1fr}
+  .journey{grid-template-columns:repeat(2,1fr)}
+  .inds{grid-template-columns:repeat(3,1fr)}
+  .links{display:none}
+  .net{gap:28px 18px}
+  .node p{display:none}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .hero{padding:56px 0 24px}
+  section{padding:60px 0}
+  .journey,.inds{grid-template-columns:1fr}
+  .right .btn{display:none}
+  .net{gap:22px 10px;padding:0}
+  .node{padding:10px 6px;text-align:center}
+  .node .t{flex-direction:column;gap:6px;font-size:12px;line-height:1.25}
+  .core{padding:12px 6px}
+  .core b{font-size:15px}
+  .core small{font-size:10.5px}
+  .core .ai{font-size:9px;padding:2px 7px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="bg"><div class="gridbg"></div><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="logo"><i><svg width="16" height="16" viewBox="0 0 32 32"><path d="M6 22l7-11 6 7 7-10" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></i>SmartERP</a>
+    <div class="links">
+      <a href="#net"><span class="vi">Sơ đồ</span><span class="en">How it works</span></a>
+      <a href="#journey"><span class="vi">Điểm chạm</span><span class="en">Touchpoints</span></a>
+      <a href="#industries"><span class="vi">Ngành hàng</span><span class="en">Industries</span></a>
+      <a href="#data"><span class="vi">Dữ liệu</span><span class="en">Data</span></a>
+    </div>
+    <div class="right">
+      <div class="lang"><button data-set="vi">VI</button><button data-set="en">EN</button></div>
+      <a href="#demo" class="btn btn-p btn-sm"><span class="vi">Đăng ký tìm hiểu</span><span class="en">Get started</span></a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <div class="badge"><b>AI-NATIVE ERP</b><span class="vi">Cho mọi ngành hàng</span><span class="en">For any industry</span></div>
+      <h1>
+        <span class="vi">Doanh nghiệp vận hành bằng AI.<br><span class="grad">Khách hàng chỉ thấy sự tinh tế.</span></span>
+        <span class="en">Your business runs on AI.<br><span class="grad">Your customers just feel the magic.</span></span>
+      </h1>
+      <p class="lead">
+        <span class="vi">SmartERP gắn AI vào từng bộ phận — marketing, nội dung đa nền tảng, sale, CRM, chăm sóc sau bán. AI làm việc thầm lặng sau mọi điểm chạm, và mọi trải nghiệm của khách đều được ghi lại thành dữ liệu.</span>
+        <span class="en">SmartERP embeds AI in every department — marketing, multi-platform content, sales, CRM, after-sales. AI works silently behind every touchpoint, and every customer experience is captured as data.</span>
+      </p>
+      <div class="cta">
+        <a href="#demo" class="btn btn-p"><span class="vi">Đăng ký tìm hiểu</span><span class="en">Get started</span> →</a>
+        <a href="#net" class="btn btn-g"><span class="vi">Xem sơ đồ</span><span class="en">See how it works</span></a>
+      </div>
+    </div>
+
+    <div class="live rv">
+      <div class="live-in">
+        <div class="live-h">
+          <div class="who"><div class="av">KM</div><div><b><span class="vi">Anh Khánh Minh</span><span class="en">Mr. Khanh Minh</span></b><small><span class="vi">Một khách hàng · 47 điểm chạm</span><span class="en">One customer · 47 touchpoints</span></small></div></div>
+          <span class="dot">LIVE</span>
+        </div>
+        <div class="feed" id="feed"></div>
+      </div>
+    </div>
+  </header>
+
+  <section id="net">
+    <div class="head rv">
+      <div class="eyebrow"><span class="vi">Sơ đồ mạng lưới</span><span class="en">The network</span></div>
+      <h2><span class="vi">Mọi bộ phận nối về <span class="grad">một lõi dữ liệu + AI.</span></span><span class="en">Every department connects to <span class="grad">one data + AI core.</span></span></h2>
+      <p class="sub"><span class="vi">Không còn mỗi phòng một file Excel. Dữ liệu chảy liên tục giữa các bộ phận, AI đứng giữa để hiểu, gợi ý và tự động hoá.</span><span class="en">No more one spreadsheet per team. Data flows continuously between departments, with AI in the middle to understand, suggest and automate.</span></p>
+    </div>
+    <div class="net rv" id="netg"></div>
+  </section>
+
+  <section id="journey">
+    <div class="head rv">
+      <div class="eyebrow"><span class="vi">AI vô hình</span><span class="en">Invisible AI</span></div>
+      <h2><span class="vi">Khách không nhìn thấy AI. <span class="grad">Họ chỉ thấy mình được hiểu.</span></span><span class="en">Customers never see the AI. <span class="grad">They just feel understood.</span></span></h2>
+    </div>
+    <div class="journey" id="jr"></div>
+  </section>
+
+  <section id="industries">
+    <div class="head rv">
+      <div class="eyebrow"><span class="vi">Đa ngành hàng</span><span class="en">Multi-industry</span></div>
+      <h2><span class="vi">Một nền tảng, <span class="grad">may đo theo ngành của bạn.</span></span><span class="en">One platform, <span class="grad">tailored to your industry.</span></span></h2>
+      <p class="sub"><span class="vi">Đã triển khai thực tế từ Việt Nam tới Nhật Bản.</span><span class="en">Deployed in real businesses from Vietnam to Japan.</span></p>
+    </div>
+    <div class="inds" id="inds"></div>
+  </section>
+
+  <section id="data">
+    <div class="data">
+      <div class="rv">
+        <div class="eyebrow"><span class="vi">Dữ liệu trải nghiệm</span><span class="en">Experience data</span></div>
+        <h2><span class="vi">Mọi trải nghiệm <span class="grad">đều được ghi lại.</span></span><span class="en">Every experience <span class="grad">is recorded.</span></span></h2>
+        <p class="sub"><span class="vi">Một cú click, một tin nhắn, một lần bảo hành — tất cả về một hồ sơ duy nhất. AI học từ đó để điểm chạm sau tốt hơn điểm chạm trước.</span><span class="en">A click, a message, a warranty visit — all flowing into one profile. AI learns from it so every next touchpoint beats the last.</span></p>
+        <div class="points">
+          <div class="pt"><i>🧬</i><div><h4><span class="vi">Khách hàng là gốc</span><span class="en">Customer at the core</span></h4><p><span class="vi">Nhiều SĐT, email, kênh — vẫn là một người, một dòng thời gian.</span><span class="en">Many phones, emails, channels — still one person, one timeline.</span></p></div></div>
+          <div class="pt"><i>🔐</i><div><h4><span class="vi">Phân quyền chặt</span><span class="en">Tight access control</span></h4><p><span class="vi">Nhiều chi nhánh, nhiều pháp nhân — ai thấy gì được khoá ở tầng dữ liệu.</span><span class="en">Many branches and entities — visibility locked at the data layer.</span></p></div></div>
+          <div class="pt"><i>📈</i><div><h4><span class="vi">Doanh thu truy về nguồn</span><span class="en">Revenue traced to source</span></h4><p><span class="vi">Biết bài viết nào, kênh nào, ai tạo ra từng đồng doanh thu.</span><span class="en">Know which post, channel and person drove each sale.</span></p></div></div>
+        </div>
+      </div>
+      <div class="term rv">
+        <div class="term-h"><i></i><i></i><i></i><span class="mono">experience_events · stream</span></div>
+        <div class="log mono" id="log"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo">
+    <div class="final rv">
+      <h2><span class="vi">Để AI làm việc thầm lặng<br><span class="grad">cho doanh nghiệp của bạn.</span></span><span class="en">Let AI work silently<br><span class="grad">for your business.</span></span></h2>
+      <p class="sub"><span class="vi">Bạn tập trung phát triển kinh doanh. Vận hành để SmartERP lo.</span><span class="en">You focus on growing the business. SmartERP runs the operations.</span></p>
+      <div class="cta"><a href="https://www.ayp.vn/van-hanh-doanh-nghiep" target="_blank" rel="noopener" class="btn btn-p"><span class="vi">Đăng ký tìm hiểu</span><span class="en">Get started</span> →</a></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 SmartERP</span><span class="vi">AI vô hình ở mọi điểm chạm.</span><span class="en">Invisible AI at every touchpoint.</span></div></footer>
+
+<script>
+// L() renders both languages; CSS shows the active one
+const L = (vi, en) => `<span class="vi">${vi}</span><span class="en">${en}</span>`;
+
+// network: 8 departments around the core, row-major 3x3 grid (index 4 = core)
+const nodes = [
+  ['📣','#8b5cf6',['Marketing','Marketing'],['AI chọn tệp khách, tối ưu ngân sách theo doanh thu thật','AI picks audiences, optimises spend on real revenue']],
+  ['✍️','#ec4899',['Nội dung','Content'],['1 ý tưởng → bài cho Facebook, TikTok, Zalo, Web','1 idea → posts for Facebook, TikTok, Zalo, Web']],
+  ['🎯','#f59e0b',['Sale','Sales'],['Chấm điểm lead, gợi ý kịch bản, nhắc follow-up','Lead scoring, talk tracks, follow-up nudges']],
+  ['💰','#a78bfa',['Kế toán','Finance'],['Đối soát thu chi, công nợ, báo cáo tự động','Auto reconciliation, receivables, reports']],
+  null,
+  ['🧬','#06b6d4',['CRM','CRM'],['Gộp khách trùng, dòng thời gian 360°','Merges duplicates, 360° timeline']],
+  ['📊','#22d3ee',['Báo cáo','Reports'],['Hỏi số liệu bằng tiếng Việt, real-time','Ask your data in plain language, real-time']],
+  ['🛠️','#f472b6',['Vận hành & kho','Ops & inventory'],['Tồn kho, đơn hàng, sửa chữa, đặt lịch','Stock, orders, repairs, bookings']],
+  ['🤝','#10b981',['Sau bán','After-sales'],['Phát hiện khách sắp rời, tự lên lịch chăm sóc','Spots churn risk, schedules care automatically']],
+];
+const pos = [16.67, 50, 83.33];
+const lines = nodes.map((n,i) => n && `<line x1="${pos[i%3]}%" y1="${pos[Math.floor(i/3)]}%" x2="50%" y2="50%"/>`).join('');
+const flows = nodes.map((n,i) => n && `<line class="flow" pathLength="100" style="animation-delay:${-i*0.35}s" x1="${pos[i%3]}%" y1="${pos[Math.floor(i/3)]}%" x2="50%" y2="50%"/>`).join('');
+document.getElementById('netg').innerHTML =
+  `<svg aria-hidden="true"><defs><linearGradient id="lg"><stop offset="0" stop-color="#f472b6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>${lines}${flows}</svg>` +
+  nodes.map(n => n
+    ? `<div class="node"><div class="t"><i style="background:${n[1]}26">${n[0]}</i>${L(...n[2])}</div><p>${L(...n[3])}</p></div>`
+    : `<div class="core"><span class="ai">✦ AI</span><b>SmartERP</b><small>${L('Một nguồn dữ liệu','One source of truth')}</small></div>`
+  ).join('');
+
+const journey = [
+  ['📣',['Thấy quảng cáo','Sees an ad'],['Đúng sản phẩm mình đang cần.','Exactly the product they need.'],['Chọn tệp từ dữ liệu khách thật, viết nhiều biến thể.','Builds audiences from real customer data, writes variants.']],
+  ['💬',['Nhắn tin hỏi','Asks a question'],['Được trả lời ngay, như người quen.','Instant reply, like a friend.'],['Nhận ra khách cũ, gợi ý câu trả lời theo lịch sử.','Recognises the returning customer, drafts replies from history.']],
+  ['💳',['Mua hàng','Buys'],['Thanh toán gọn, rõ ràng.','Smooth, clear checkout.'],['Tạo đơn, trừ kho, đối soát tiền về tự động.','Creates order, updates stock, reconciles payment.']],
+  ['🤝',['Sau bán','After-sales'],['Được nhắc bảo dưỡng đúng lúc.','Reminded for service at the right time.'],['Theo dõi tín hiệu hài lòng, tự lên lịch chăm sóc và xin giới thiệu.','Tracks satisfaction, schedules care and referral asks.']],
+];
+document.getElementById('jr').innerHTML = journey.map(([ic,t,see,ai]) => `
+  <div class="step rv"><div class="n">${ic}</div><h4>${L(...t)}</h4>
+  <div class="see"><b>${L('Khách thấy','Customer sees')}</b>${L(...see)}</div>
+  <div class="ai2"><b>✦ ${L('AI làm phía sau','AI behind the scenes')}</b>${L(...ai)}</div></div>`).join('');
+
+const inds = [
+  ['🚲',['Bán lẻ xe đạp · Nhật Bản','Bicycle retail · Japan'],['Bán hàng, sửa chữa xe, kế toán & tài chính.','Sales, bike repairs, accounting & finance.']],
+  ['⚖️',['Tư vấn luật','Legal advisory'],['Quy trình tư vấn và quản trị khách hàng.','Consultation workflow and client management.']],
+  ['✈️',['Du lịch · Khách sạn','Travel · Hotels'],['CRM cho lữ hành và khách sạn.','CRM for tour operators and hotels.']],
+  ['🎓',['Giáo dục','Education'],['Quản trị học viên, kế toán, tài chính.','Student management, accounting, finance.']],
+];
+document.getElementById('inds').innerHTML = inds.map(([e,t,d]) =>
+  `<div class="ind rv"><div class="e">${e}</div><h4>${L(...t)}</h4><p>${L(...d)}</p></div>`).join('') +
+  `<a href="#demo" class="ind you rv"><div class="e">✨</div><h4>${L('Ngành của bạn','Your industry')}</h4><p>${L('Workflow may đo theo cách bạn vận hành.','Workflows tailored to how you operate.')}</p></a>`;
+
+// live feed
+const evs = [
+  ['MKT','#8b5cf6',['AI chọn tệp tương tự từ <em>1.240 khách đã mua</em>','AI built lookalike from <em>1,240 buyers</em>']],
+  ['CONTENT','#ec4899',['Viết <em>4 phiên bản</em> bài cho FB · TikTok · Zalo · Web','Wrote <em>4 versions</em> for FB · TikTok · Zalo · Web']],
+  ['CRM','#06b6d4',['Gộp SĐT mới vào <em>hồ sơ cũ</em> — không tạo trùng','Merged new phone into <em>existing profile</em> — no duplicate']],
+  ['SALE','#f59e0b',['Gợi ý gọi lúc <em>20:15</em> — giờ khách hay đọc tin','Suggests calling at <em>8:15 PM</em> — his usual reading time']],
+  ['OPS','#f472b6',['Đơn đã tạo, <em>trừ kho tự động</em>','Order created, <em>stock updated</em>']],
+  ['FIN','#a78bfa',['Đối soát thanh toán — <em>tiền đã về</em>','Payment reconciled — <em>funds received</em>']],
+  ['CARE','#10b981',['Lên lịch nhắc <em>bảo dưỡng sau 30 ngày</em>','Scheduled <em>30-day service reminder</em>']],
+  ['BI','#22d3ee',['Doanh thu ghi nhận về <em>bài TikTok ngày 02/10</em>','Revenue attributed to <em>TikTok post, Oct 2</em>']],
+];
+const feed = document.getElementById('feed'); let fi = 0;
+function pushEv(){
+  const [tag,c,txt] = evs[fi++ % evs.length];
+  const d = document.createElement('div'); d.className = 'ev';
+  d.innerHTML = `<span class="tag" style="background:${c}26;color:${c}">${tag}</span><span>${L(...txt)}</span>`;
+  feed.prepend(d);
+  while (feed.children.length > 6) feed.lastChild.remove();
+}
+for (let i=0;i<4;i++) pushEv();
+setInterval(pushEv, 2400);
+
+// event log
+const logEvs = [
+  ['ad.impression','facebook','lookalike_buyers'],['content.view','tiktok','post_8812'],['message.received','zalo','"còn hàng không ạ?"'],
+  ['contact.merged','crm','+84 9** *** 218'],['lead.scored','ai','92 → hot'],['order.created','ops','stock -1'],
+  ['payment.reconciled','fin','matched'],['care.scheduled','ai','D+30 service'],['sentiment.detected','ai','delight 0.91'],
+  ['referral.asked','care','via zalo'],['revenue.attributed','bi','tiktok/post_8812'],
+];
+const log = document.getElementById('log'); let li = 0;
+function pushLog(){
+  const [k,s,o] = logEvs[li++ % logEvs.length];
+  const d = document.createElement('div');
+  d.innerHTML = `<span class="t">${new Date().toTimeString().slice(0,8)}</span> <span class="k">${k}</span> <span class="s">${s}</span> <span class="o">${o}</span>`;
+  log.append(d);
+  while (log.children.length > 14) log.firstChild.remove();
+}
+for (let i=0;i<10;i++) pushLog();
+setInterval(pushLog, 1300);
+
+// language: ?lang=en, else saved, else vi
+function setLang(l){
+  document.documentElement.dataset.l = l; document.documentElement.lang = l;
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on', b.dataset.set===l));
+  try { localStorage.setItem('lang', l) } catch(e) {}
+}
+document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.set));
+let saved = new URLSearchParams(location.search).get('lang');
+try { saved = saved || localStorage.getItem('lang') } catch(e) {}
+setLang(saved === 'en' ? 'en' : 'vi');
+
+const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target) } }), {threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
